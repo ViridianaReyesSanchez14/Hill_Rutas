@@ -1,0 +1,48 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Ciudad</title>
+    <!-- Enlazamos el archivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Sección de Formulario -->
+        <div class="form-section">
+            <h1>Selecciona la ciudad inicial</h1>
+            <form action="/calcular" method="POST">
+                <label for="ciudad_inicial">Ciudad Inicial:</label>
+                <select name="ciudad_inicial" id="ciudad_inicial">
+                    {% for ciudad in cities %}
+                        <option value="{{ ciudad }}">{{ ciudad }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Calcular</button>
+            </form>
+            
+            {% if ruta %}
+                <h3>Distancia Total: {{ distancia_total }} unidades</h3>
+            {% endif %}
+        </div>
+
+        <!-- Sección de Mapa y Resultados -->
+        <div class="map-section">
+            <!-- Aquí la imagen se verá centrada -->
+            {% if ruta %}
+                <div class="results-section">
+                    <h2>Ruta optimizada:</h2>
+                    <ul>
+                        {% for ciudad in ruta %}
+                            <li>{{ ciudad }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
